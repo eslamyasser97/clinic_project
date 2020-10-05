@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block body %}
+
+  {% include 'clinic/search.html' %}
+    <div class="job_details_area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-10 mx-auto">
+                         <div class="apply_job_form white-bg">
+                            {% block content %}
+
+
+
+                            {% endblock content %}
+                        </div>
+                    </div>
+
+                </div>
+        </div>
+  </div>
+</div>
+{% endblock body %}
+
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input_field">
+                        <input type="text"  placeholder=" الإسم" value={{user_data}}>
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input_field">
+                        <input type="text"  placeholder=" الإيميل" value={{user_data.email}}>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="input_field">
+                       <input type="text"  placeholder=" رقم الهاتف" value={{user_data.profile.telephone}}>
+                    </div>
+                </div>
+                {% if user_data.profile.image %}
+                              <li>صوره البطاقه الشخصيه   <img src="{{user_data.profile.image.url}}" alt="" width="100" height="100"></li>
+                          {% else %}
+                              <li>صوره البطاقه الشخصيه   <img src="img/candiateds/2.png" alt="" width="100" height="100"></li>
+                          {%endif%}
+                <div class="col-md-12">
+                    <div class="submit_btn">
+                        <button class="boxed-btn3 w-100" type="submit">حجز</button>
+                    </div>
+                </div>
+            </div>
+        </form>
