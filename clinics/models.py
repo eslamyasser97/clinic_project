@@ -52,6 +52,7 @@ class clinic(models.Model):
 
 class apply(models.Model):
     clinic = models.ForeignKey(clinic, related_name='apply_clinic', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='user_apply',on_delete=models.CASCADE)
     name = models.CharField(_(': الاسم'), max_length=50)
     telephone = models.CharField(_(': التليفون:'), max_length=50,blank=True,null=True)
     ssid = models.ImageField(_('صوره البطاقه'),upload_to='apply')

@@ -16,13 +16,17 @@ def clinic_list(request):
 def clinic_detail(request,slug):
     clinic_detail = clinic.objects.get(slug=slug)
     current_user = request.user
-
     if request.method=='POST':
         form = ApplyForm(request.POST , request.FILES)
         if form.is_valid():
             form = form.save(commit=False)
-            form.clinic = clinic_detail
+            form.clinic = clinic_detail #to pass clinic slug to database connect with apply form
+            form.user = current_user  #to pass user name to database connect with apply form
+            form.name = current_user #to pass current user name to database connect with apply form
+            form.telephone = current_user.profile.telephone #to pass user telephone  to database connect with apply form
+            form.ssid = current_user.profile.image  #to pass ssid image to database connect with apply form
             form.save()
+            return render(request,'clinic/apply_done.html',{'clinic_detail':clinic_detail,'user_data':current_user})
             print("done")
 
     else:

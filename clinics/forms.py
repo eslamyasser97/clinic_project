@@ -1,5 +1,6 @@
 from django import forms
 from .models import apply , clinic
+from django.contrib.auth.models import User
 
 
 class ApplyForm(forms.ModelForm):
