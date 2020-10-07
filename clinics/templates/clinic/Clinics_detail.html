@@ -34,7 +34,11 @@
                     </div>
                     <div class="jobs_right">
                         <div class="apply_now">
-                            <a class="boxed-btn3" href="">حجز كشف</a>
+
+                            <form method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <button class="boxed-btn3 w-100" type="submit">حجز كشف</button>
+                                </form>
                         </div>
                     </div>
                 </div>
@@ -85,23 +89,13 @@
     <!-- /comments -->
     <div class="apply_job_form white-bg">
         <h4>احجز الان</h4>
-        {% if user.is_authenticated %}
              <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            {{form|crispy}}
+
             <button class="boxed-btn3 w-100" type="submit">حجز</button>
 
 
         </form>
-        {%else%}
-        <form method="POST" enctype="multipart/form-data">
-
-            {% csrf_token %}
-            {{form|crispy}}
-            <button class="boxed-btn3 w-100" type="submit">حجز</button>
-
-        </form>
-        {%endif%}
     </div>
         </div>
         <div class="col-lg-4">
@@ -144,7 +138,7 @@
                     <div id="map" style="height: 200px;"></div>
                     <script>
                         function initMap() {
-                        var uluru = {lat: -25.363, lng: 131.044};
+                        var uluru = {lat: 31.2001, lng: 29.9187};
                         var grayStyles = [
                             {
                             featureType: "all",
@@ -156,7 +150,7 @@
                             {elementType: 'labels.text.fill', stylers: [{color: '#ccdee9'}]}
                         ];
                         var map = new google.maps.Map(document.getElementById('map'), {
-                            center: {lat: -31.197, lng: 150.744},
+                            center: {lat: 31.2001, lng: 29.9187},
                             zoom: 9,
                             styles: grayStyles,
                             scrollwheel:  false

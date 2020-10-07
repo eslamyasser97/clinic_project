@@ -1,12 +1,9 @@
 from django import forms
-from .models import apply , clinic
+from .models import  clinic
 from django.contrib.auth.models import User
 
 
-class ApplyForm(forms.ModelForm):
-    class Meta:
-        model = apply
-        fields = ['name','telephone','ssid','email']
+
 
 
 class Add_Clinic(forms.ModelForm):

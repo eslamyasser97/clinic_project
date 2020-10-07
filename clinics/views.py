@@ -1,37 +1,38 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.urls import reverse
-from .models import clinic
-from .forms import ApplyForm , Add_Clinic
+from . import models
+from .forms import  Add_Clinic
 from django.contrib.auth import authenticate , login
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 from django.http import HttpResponse
 
 def clinic_list(request):
-    clinic_list = clinic.objects.all()
+    clinic_list = models.clinic.objects.all()
     context = {'clinics' : clinic_list}
     return render(request,'clinic/Clinics_list.html',context)
 
 def clinic_detail(request,slug):
-    clinic_detail = clinic.objects.get(slug=slug)
+    clinic_detail = models.clinic.objects.get(slug=slug)
     current_user = request.user
+    apply = models.apply()
     if request.method=='POST':
-        form = ApplyForm(request.POST , request.FILES)
-        if form.is_valid():
-            form = form.save(commit=False)
-            form.clinic = clinic_detail #to pass clinic slug to database connect with apply form
-            form.user = current_user  #to pass user name to database connect with apply form
-            form.name = current_user #to pass current user name to database connect with apply form
-            form.telephone = current_user.profile.telephone #to pass user telephone  to database connect with apply form
-            form.ssid = current_user.profile.image  #to pass ssid image to database connect with apply form
-            form.save()
-            return render(request,'clinic/apply_done.html',{'clinic_detail':clinic_detail,'user_data':current_user})
-            print("done")
+
+        apply.clinic=clinic_detail
+        apply.user=current_user
+        apply.name=current_user
+        apply.telephone=current_user.profile.telephone
+        apply.email=current_user.email
+        apply.ssid=current_user.profile.image
+        apply.save()
+        context = {'clinic_detail':clinic_detail,'user_data':current_user}
+        return render(request,'clinic/apply_done.html',context)
+        print("done")
 
     else:
-        form = ApplyForm()
-    context = {'clinic_detail' : clinic_detail, 'form' : form,'user_data':current_user}
+        apply
+    context = {'clinic_detail' : clinic_detail, 'apply' : apply,'user_data':current_user}
     return render(request,'clinic/Clinics_detail.html',context)
 
 
