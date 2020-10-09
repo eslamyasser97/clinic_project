@@ -6,8 +6,8 @@ from django.utils.translation import ugettext_lazy as _
 
 # Create your models here.
 TYPE_OF_PERSON=(
-    ('M',"ذكر"),
-    ('F', "انثي"),
+    ('Male',"ذكر"),
+    ('Female', "انثي"),
 )
 
 TYPE_OF_CITY=(
@@ -23,8 +23,8 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     type_of_city = models.CharField(_('المحافظه'), choices=TYPE_OF_CITY,max_length=15)
     telephone = models.CharField(_('رقم الهاتف'),max_length=40)
-    type_of_person = models.CharField(_('النوع'),choices=TYPE_OF_PERSON,max_length=5)
-    image = models.ImageField(_(': الصوره البطاقه الشخصيه'),upload_to='profile',blank=True,null=True)
+    type_of_person = models.CharField(_('النوع'),choices=TYPE_OF_PERSON,max_length=8)
+    image = models.ImageField(_(': الصوره البطاقه الشخصيه'),upload_to='profile')
 
 
 

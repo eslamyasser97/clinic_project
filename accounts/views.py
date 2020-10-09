@@ -17,7 +17,7 @@ def signup(request):
             user = authenticate(username=username,password=password)
             login(request,user)
             print('done')
-            return redirect('/accounts/profile')
+            return redirect('/accounts/edit/profile')
     else:
         form = SignupForm()
     context={'form':form}
