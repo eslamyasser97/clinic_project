@@ -13,7 +13,7 @@ TYPE_OF_CITY=(
 
 )
 
-class clinic(models.Model):
+class Clinic(models.Model):
     admin = models.ForeignKey(User, related_name='clinc_admin', on_delete=models.CASCADE)
     name = models.CharField(_(': الاسم'), max_length=50)
     type_of_city = models.CharField(_('المحافظه'), choices=TYPE_OF_CITY,max_length=15)
@@ -40,7 +40,7 @@ class clinic(models.Model):
     def save(self,*args,**kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
-        super(clinic,self).save(*args, **kwargs) ## override of save method
+        super(Clinic,self).save(*args, **kwargs) ## override of save method
 
  ##function to create user with clinic dynamic only create user
 
@@ -50,8 +50,8 @@ class clinic(models.Model):
 
 #post_save.connect(create_clinic , sender=User)
 
-class apply(models.Model):
-    clinic = models.ForeignKey(clinic, related_name='apply_clinic', on_delete=models.CASCADE)
+class Apply(models.Model):
+    clinic = models.ForeignKey(Clinic, related_name='apply_clinic', on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name='user_apply',on_delete=models.CASCADE)
     name = models.CharField(_(': الاسم'), max_length=50)
     telephone = models.CharField(_(': التليفون:'), max_length=50,blank=True,null=True)

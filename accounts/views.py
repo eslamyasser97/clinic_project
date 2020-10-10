@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .forms import SignupForm , UserForm , ProfileForm
 from .models import Profile
+from clinics.models import Apply
 from django.urls import reverse
 
 # Create your views here.
@@ -32,7 +33,7 @@ def profile(request):
 
 @login_required()
 def edit_profile(request):
-    profile = Profile.objects.get(user=request.user)
+    profile = Profile.objects.all(user=request.user)
 
     if request.method == 'POST':
         userform = UserForm(request.POST,instance=request.user)
@@ -50,3 +51,10 @@ def edit_profile(request):
         profileform = ProfileForm(instance=profile)
     context = {'userform':userform,'profileform':profileform}
     return render(request, 'accounts/profile_edit.html', context)
+
+
+def apply(request):
+    current_user = request.user
+    apply = Apply.objects.get(user=request.user)
+    context={"current_user":current_user,"apply":apply}
+    return render(request,"accounts/apply.html",context)

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import clinic , apply
+from .models import Clinic , Apply
 # Register your models here.
-admin.site.register(clinic)
-admin.site.register(apply)
+admin.site.register(Clinic)
+admin.site.register(Apply)

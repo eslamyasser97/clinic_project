@@ -1,5 +1,5 @@
 from django import forms
-from .models import  clinic
+from .models import  Clinic
 from django.contrib.auth.models import User
 
 
@@ -8,6 +8,6 @@ from django.contrib.auth.models import User
 
 class Add_Clinic(forms.ModelForm):
     class Meta:
-        model = clinic
+        model = Clinic
         fields = '__all__'
         exclude = ('admin','slug',)

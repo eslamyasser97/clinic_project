@@ -9,14 +9,14 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 
 def clinic_list(request):
-    clinic_list = models.clinic.objects.all()
+    clinic_list = models.Clinic.objects.all()
     context = {'clinics' : clinic_list}
     return render(request,'clinic/Clinics_list.html',context)
 
 def clinic_detail(request,slug):
-    clinic_detail = models.clinic.objects.get(slug=slug)
+    clinic_detail = models.Clinic.objects.get(slug=slug)
     current_user = request.user
-    apply = models.apply()
+    apply = models.Apply()
     if request.method=='POST':
 
         apply.clinic=clinic_detail
