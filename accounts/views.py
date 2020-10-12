@@ -55,6 +55,6 @@ def edit_profile(request):
 
 def apply(request):
     current_user = request.user
-    apply = Apply.objects.get(user=request.user)
-    context={"current_user":current_user,"apply":apply}
+    applys = Apply.objects.all()
+    context={"current_user":current_user,"applys":applys}
     return render(request,"accounts/apply.html",context)
